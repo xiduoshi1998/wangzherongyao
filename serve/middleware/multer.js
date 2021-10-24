@@ -1,5 +1,4 @@
 const multer = require('koa-multer');
-
 const uploadImage = multer({
     dest: './uploads'
 })

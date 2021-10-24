@@ -5,8 +5,8 @@
 </template>
 
 <style>
-.app {
-  margin: 0;
-  padding: 0;
+#app {
+  margin: 0px;
+  padding: 0px;
 }
 </style>

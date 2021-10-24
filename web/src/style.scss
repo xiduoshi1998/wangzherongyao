@@ -1,0 +1,315 @@
+// 样式重置
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+html{
+    font-size: 13px;
+}
+body{
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5em;
+  background-color: #f1f1f1;
+}
+a{
+    color: #999;
+}
+
+// 定义网站的全局颜色,字体 clss
+
+// 颜色集合
+$colors:(
+ "primary":#db9e3f,
+ "white":#fff,
+ "light":#f9f9f9,
+ "grey":#9999,
+ "dark-1":#666,
+ 'grey-2':#b6afa8,
+ 'lightgray':#d4d9de,
+ "dark":#222,
+ "black":#000,
+ 'blue':#4394e4,
+ 'red':#782a28
+);
+// map-get 获取某个集合的变量
+$boder-color:map-get( $colors, "lightgray" );
+
+@each $colorKey,$color in $colors {
+    .text-#{$colorKey}{
+       color: $color
+    }
+    .bg-#{$colorKey}{
+        background-color:$color
+    }
+};
+
+// 文本
+@each $var in (left,center,right) {
+    .text-#{$var}{
+        text-align: $var;
+    }
+};
+.text-ellipse{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.text-ellipse2{
+ text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+}
+
+$base-font-size:1rem;
+// 字体
+$font-size:(
+    xxs:0.6154,
+    xs:0.7692, //10
+    sm:0.9231,  //12
+    md:1, //13
+    lg:1.0769, //14
+    xl:1.2308 //16
+);
+@each $sizeKey,$size in $font-size {
+     .fs-#{$sizeKey}{
+         font-size: $size * $base-font-size;
+     }
+}
+
+$border:('bottom':bottom,'right':right,"left":left,"top":top);
+@each $borderKey,$value in $border {
+    .border-#{$borderKey}{
+        border-#{$value}:1px solid  #d1d4d6
+    }
+}
+// width
+.w-100{
+    width: 100%;
+}
+.w-25{
+    width: 25%;
+}
+// height
+.h-100{
+   height: 100%;
+}
+.text-weight{
+ font-weight: 900;
+}
+p{
+    line-height: 1.75em;
+}
+h2{
+ line-height: 1.5em;
+}
+// flex
+.d-flex{
+    display: flex;
+};
+.flex-column{
+flex-direction: column
+};
+.flex-wrap{
+flex-wrap: wrap;
+}
+// 主轴
+$flex-jc:(
+  start:flex-start,
+  end:flex-end,
+  center:center,
+  between:space-between,
+  around:space-around
+);
+@each $key,$value in $flex-jc {
+    .jc-#{$key}{
+        justify-content: $value;
+    }
+}
+
+$flex-ai:(
+  start:flex-start,
+  end:flex-end,
+  center:center,
+  stretch:stretch,
+);
+
+@each $key,$value in $flex-ai {
+    .ai-#{$key}{
+        align-items: $value;
+    }
+};
+.flex-1{
+    flex: 1;
+}
+
+// margin padding 样式 
+$spacing-types:(m:margin,p:padding);  
+$spacing-directions:(t:top,r:right,b:bottom,l:left); //方向
+$spacing-base-size:1rem; //基础尺寸
+$spacing-size:(  //倍数 
+      0:0,
+      1:0.25,
+      2:0.5,
+      3:1,
+      4:1.5,
+      5:3
+);
+
+@each $typeKey,$type in $spacing-types {
+    // m-1{top:0;}
+      @each $sizeKey,$sizes in $spacing-size {
+           .#{$typeKey}-#{$sizeKey}{ 
+              #{$type}:$sizes * $spacing-base-size;
+           }
+       };  
+// mx-1 {left:0;right:0;}
+  @each $sizeKey,$sizes in $spacing-size {
+           .#{$typeKey}x-#{$sizeKey}{ 
+              #{$type}-right:$sizes * $spacing-base-size;
+              #{$type}-left:$sizes * $spacing-base-size;
+           }
+       };  
+
+// mx-1 {top:0;bottom:0;}
+        @each $sizeKey,$sizes in $spacing-size {
+           .#{$typeKey}y-#{$sizeKey}{ 
+              #{$type}-top:$sizes * $spacing-base-size;
+              #{$type}-bottom:$sizes * $spacing-base-size;
+           }
+       };  
+
+   //.mt-0{margin-top:0.25}
+   @each $directionsKey,$directions in $spacing-directions {
+       @each $sizeKey,$sizes in $spacing-size {
+           .#{$typeKey}#{$directionsKey}-#{$sizeKey}{ 
+              #{$type}-#{$directions}:$sizes * $spacing-base-size;
+           }
+       }
+   }
+};
+
+//button
+.btn{
+    width: 4.6154rem;
+    height: 1.8462rem;
+    border: none;
+    font-size: map-get($font-size , "xs" )*$base-font-size;;
+    border-radius: 0.1538rem;
+}
+
+// nav
+.nav{
+    display: flex;
+    .nav-item {
+    border-bottom: 3px solid transparent;
+    color: map-get($colors, 'black');
+   &.active{ //& 表示平级关系的class
+     color: map-get($colors, 'primary');
+    border-bottom: 3px solid map-get($colors, 'primary' );
+    }
+    }
+
+    // 路由页nav
+    &.nav-inverse{
+       .nav-item{
+        color: map-get($colors , 'white' );
+        border-bottom: 3px solid transparent;
+          &.active{ //& 表示平级关系的class
+        border-bottom: 3px solid map-get($colors, 'white' );
+    }
+       };
+    }
+}
+
+
+// script 
+.sprite{
+    background: url('~@/assets/image/home_files/index.png');
+    background-size:28.8462rem;
+    display: inline-block;
+    &.sprite-news{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position:  63.546% 15.517%;
+    }
+   &.sprite-news2{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 90.483% 15.614%;
+    }
+    &.sprite-news3{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 36.746% 0.924%;
+    }
+    &.sprite-news4{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 10.408% 15.517%;
+    }
+    &.sprite-news5{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 89.733% 1.266%;
+    }
+    &.sprite-news6{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position:36.467% 15.287%;
+    }
+    &.sprite-news7{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 63.3% 0.927%;
+    }
+    &.sprite-news8{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 0 96.207%;
+    }
+    &.sprite-news9{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 90.483% 15.614%;
+    }
+    &.sprite-news10{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 90.483% 15.614%;
+    }
+    &.sprite-news11{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 90.483% 15.614%;
+    }
+    &.sprite-news12{
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 90.483% 15.614%;
+    }
+
+
+    &.sprite-arrow{
+    width: 0.7692rem;
+	height: 0.7692rem; 
+    background-position:  38.577% 52.076%;
+    }
+}
+
+// 一行显示

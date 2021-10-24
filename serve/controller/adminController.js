@@ -1,9 +1,8 @@
-
+const errorTyp = require('../constants/error-type')
 class adminController {
     // 创建分类
     async create(ctx, next) {
         let { parent } = ctx.request.body
-
         try {
             if (!parent) {
                 ctx.request.body.parent = null
@@ -18,11 +17,12 @@ class adminController {
     // 分类列表
     async getList(ctx, next) {
         let queryOptions = {};
-        if (ctx.model.modelName === 'Categories') {
+        let name = ctx.model.modelName;
+        if (name === 'Categories' || name === 'Video') {
+            console.log(ctx.model.modelName);
             queryOptions.populate = 'parent'
         }
-        let items = await ctx.model.find().setOptions(queryOptions)
-
+        let items = await ctx.model.find().setOptions(queryOptions);
         ctx.body = items
     };
 
@@ -47,9 +47,15 @@ class adminController {
     //删除
     async removeCategories(ctx, next) {
         let { id } = ctx.params
+        let { username } = await ctx.model.findById(id)
+        if (username == 'admin') {
+            const err = new Error(errorTyp.UNPERMISSION)
+            return ctx.app.emit('error', err, ctx)
+        }
         await ctx.model.findByIdAndDelete(id)
         ctx.body = { success: true }
     }
+
 
 };
 
