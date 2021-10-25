@@ -212,7 +212,6 @@ export default {
       const categories = res.data.categories.map(v => v.name).join("/");
       this.model = res.data;
       this.model.categories = categories;
-      console.log(this.model);
     },
     slideTo(index) {
       return this.$refs.list.swiper.slideTo(index);

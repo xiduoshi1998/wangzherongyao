@@ -17,10 +17,12 @@ app.Routers()  //服务端路由
 app.use(webIndex.routes(), webIndex.allowedMethods())
 
 app.use(static(path.join(__dirname, "/uploads")))
+app.use(static(__dirname, "/admin")) //托管admin静态文件
+app.use(static(path.join(__dirname, "/web"))) //托管web静态文件
 
 app.on('error', errorHandler)
 
 app.listen(3000, () => {
-    console.log("http://localhost:8080");
+    console.log("http://localhost:3000");
 
 })

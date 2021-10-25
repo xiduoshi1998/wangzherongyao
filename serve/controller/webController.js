@@ -101,8 +101,10 @@ class webController {
 
     // 英雄详情
     async getHeroes(ctx, next) {
+
         const { id } = ctx.request.params;
         const data = await Heroes.findById(id).populate('categories smoothly hardship partners.hero').lean();
+        console.log(id);
         ctx.body = data
     }
 
