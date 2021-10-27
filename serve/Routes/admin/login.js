@@ -12,6 +12,7 @@ const login = new Router();
 login.post('/admin/api/login', async (ctx, next) => {
     let { password, username } = ctx.request.body;
     const user = await AdminUsers.findOne({ username }).select('+password') //取出密码 默认不取出;
+    console.log(user);
     if (!user) {
         const err = new Error(errorTyp.USER_DOES_NOT_EXISTS)
         return ctx.app.emit('error', err, ctx)

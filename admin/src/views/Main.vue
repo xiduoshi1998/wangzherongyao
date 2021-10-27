@@ -6,32 +6,10 @@
           <template slot="title">
             <i class="el-icon-message"></i>内容管理
           </template>
-          <!-- 物品 -->
-          <el-menu-item-group>
-            <template slot="title">分组</template>
-            <el-menu-item index="/items/create">新建物品</el-menu-item>
-            <el-menu-item index="/items/list">物品列表</el-menu-item>
-          </el-menu-item-group>
-
-          <!-- 英雄 -->
-          <el-menu-item-group>
-            <template slot="title">分组</template>
-            <el-menu-item index="/heros/create">新建英雄</el-menu-item>
-            <el-menu-item index="/heros/list">英雄列表</el-menu-item>
-          </el-menu-item-group>
-
-          <!-- 文章 -->
-          <el-menu-item-group>
-            <template slot="title">分组</template>
-            <el-menu-item index="/articles/create">新建文章</el-menu-item>
-            <el-menu-item index="/articles/list">文章列表</el-menu-item>
-          </el-menu-item-group>
-
-          <el-menu-item-group>
-            <template slot="title">分组</template>
-            <el-menu-item index="/videos/create">新建视频</el-menu-item>
-            <el-menu-item index="/videos/list">视频列表</el-menu-item>
-          </el-menu-item-group>
+          <category site="/items" createName="新建物品" listName="物品列表"></category>
+          <category site="/heros" createName="新建英雄" listName="英雄列表"></category>
+          <category site="/articles" createName="新建文章" listName="文章列表"></category>
+          <category site="/videos" createName="新建视频" listName="视频列表"></category>
         </el-submenu>
 
         <!-- 运营管理 -->
@@ -40,28 +18,15 @@
             <i class="el-icon-message"></i>运营管理
           </template>
           <!-- 广告位 -->
-          <el-menu-item-group>
-            <template slot="title">分组</template>
-            <el-menu-item index="/ads/create">新建广告位</el-menu-item>
-            <el-menu-item index="/ads/list">广告位列表</el-menu-item>
-          </el-menu-item-group>
+          <category site="/ads" createName="新建管理员" listName="广告位列表"></category>
         </el-submenu>
 
         <el-submenu index="3">
           <template slot="title">
             <i class="el-icon-message"></i>系统管理
           </template>
-          <el-menu-item-group>
-            <template slot="title">分组</template>
-            <el-menu-item index="/categories/create">新建分类</el-menu-item>
-            <el-menu-item index="/categories/list">分类列表</el-menu-item>
-          </el-menu-item-group>
-
-          <el-menu-item-group>
-            <template slot="title">分组</template>
-            <el-menu-item index="/adminUsers/create">新建管理员</el-menu-item>
-            <el-menu-item index="/adminUsers/list">管理员列表</el-menu-item>
-          </el-menu-item-group>
+          <category site="/categories" createName="新建分类" listName="分类列表"></category>
+          <category site="/adminUsers" createName="新建管理员" listName="管理员列表"></category>
         </el-submenu>
       </el-menu>
     </el-aside>
@@ -88,6 +53,7 @@
   </el-container>
 </template>
 <script>
+import category from "../components/category";
 export default {
   data() {
     return {
@@ -113,6 +79,9 @@ export default {
             });
       }
     }
+  },
+  components: {
+    category
   }
 };
 </script>

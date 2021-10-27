@@ -117,16 +117,7 @@
               </el-form-item>
 
               <el-form-item label="图标">
-                <el-upload
-                  class="avatar-uploader"
-                  :action="$http.defaults.baseURL+`/upload`"
-                  :show-file-list="false"
-                  :on-success="res=>$set(item,'icon',res.url)"
-                  :headers="headers"
-                >
-                  <img v-if="item.icon" :src="item.icon" class="avatar" />
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+                <upload :item="item" name="icon"></upload>
               </el-form-item>
               <el-form-item>
                 <el-button type="danger" size="small" @click="model.skills.splice(i,1)">删除</el-button>
@@ -187,16 +178,7 @@
                 ></el-date-picker>
               </el-form-item>
               <el-form-item label="封面">
-                <el-upload
-                  class="avatar-uploader"
-                  :action="$http.defaults.baseURL+`/upload`"
-                  :show-file-list="false"
-                  :on-success="res=>$set(item,'image',res.url)"
-                  :headers="headers"
-                >
-                  <img v-if="item.image" :src="item.image" class="banner" />
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+                <upload :item="item" name="image"></upload>
               </el-form-item>
 
               <el-form-item>
@@ -219,6 +201,7 @@ import { VerifyForm } from "../../verify/formVerify";
 import Score from "../../components/Hero/Scores";
 import Tips from "../../components/Hero/Tips";
 import model from "../../components/common/module";
+import upload from "./upload/upload";
 export default {
   data() {
     return {
@@ -245,7 +228,8 @@ export default {
   },
   components: {
     Score,
-    Tips
+    Tips,
+    upload
   },
   computed: {
     headers() {
@@ -256,7 +240,7 @@ export default {
   },
 
   methods: {
-    // 修改分类,创建子分类
+    // 修改英雄,创建英雄
     save(formName) {
       this.$refs[formName].validate(async valid => {
         model.create(this, valid, this.id, "heros", this.model);
@@ -290,12 +274,6 @@ export default {
       let result = await this.$http.get("rest/heros");
       this.heroes = result.data;
     }
-
-    // 上传图片成功回调
-    // afterUpload(res) {
-    //   // this.$set(this.model, "avatar", res.url);
-    //   this.model.avatar = res.url;
-    // }
   },
   created() {
     this.id && this.fetch();

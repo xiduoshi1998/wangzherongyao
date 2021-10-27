@@ -96,7 +96,7 @@
                   />
                 </div>
                 <!-- 技能描述 -->
-                <div v-if="model.currenSkill">
+                <div v-if="this.model.skills">
                   <div class="d-flex ai-center py-3">
                     <h3>{{currenSkill.name}}</h3>
                     <span
