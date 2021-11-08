@@ -1,6 +1,6 @@
 <template>
-  <Card :title="`${title}`" :icon="`${icon}`">
-    <div class="jc-between px-3 pt-3 nav">
+  <Card :title="`${title}`" :icon="`${icon}`" :plain="plain">
+    <div class="jc-between px-3 pt-3 nav overflow-x">
       <div
         class="nav-item"
         :class="{active:active==i}"
@@ -9,12 +9,12 @@
         slot="car-nav"
         @click="$refs.list.swiper.slideTo(i)"
       >
-        <div class="nav-link">{{category.name}}</div>
+        <div class="nav-link text-center text-ellipse px-1">{{category.name}}</div>
       </div>
     </div>
 
     <!-- 展示列表 -->
-    <div class="mt-3 card-body px-3">
+    <div>
       <swiper
         ref="list"
         @slide-change="()=>active=$refs.list.swiper.realIndex"
@@ -33,6 +33,7 @@ export default {
   props: {
     title: { type: String, required: true },
     icon: { type: String, required: true },
+    plain: { type: String },
     categories: { type: Array }
   },
   data() {
@@ -43,4 +44,11 @@ export default {
 };
 </script>
 <style scoped>
+.text-ellipse {
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+.overflow-x {
+  overflow-x: scroll;
+}
 </style>

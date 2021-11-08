@@ -18,17 +18,11 @@
       <el-form-item label="播放量">
         <el-input v-model="model.play"></el-input>
       </el-form-item>
+      <el-form-item label="视频时间">
+        <el-input v-model="model.time"></el-input>
+      </el-form-item>
       <el-form-item label="封面">
-        <el-upload
-          class="avatar-uploader"
-          :action="$http.defaults.baseURL+`/upload`"
-          :show-file-list="false"
-          :on-success="res=>this.model.picture=res.url"
-          :headers="headers"
-        >
-          <img v-if="model.picture" :src="model.picture" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        <upload :item="model" name="picture"></upload>
       </el-form-item>
 
       <el-form-item>
@@ -40,6 +34,7 @@
 
 <script>
 import { VerifyForm } from "../../verify/formVerify";
+import upload from "../Heros/upload/upload";
 export default {
   data() {
     return {
@@ -50,7 +45,8 @@ export default {
         parent: "",
         picture: "",
         video: "",
-        play: 0
+        play: "",
+        time: ""
       }
     };
   },
@@ -60,6 +56,9 @@ export default {
         Authorization: "Bearer " + (localStorage.token || "")
       };
     }
+  },
+  components: {
+    upload
   },
   methods: {
     async save() {
@@ -96,27 +95,4 @@ export default {
 };
 </script>
 <style scoped>
-.avatar-uploader .el-upload {
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader-icon:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  font-size: 28px;
-  color: #8c939d;
-  min-width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  min-width: 178px;
-  height: 178px;
-  display: block;
-}
 </style>

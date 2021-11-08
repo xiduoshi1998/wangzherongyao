@@ -7,18 +7,17 @@ const http = axios.create({
     baseURL: 'http://localhost:3000/admin/api',
 })
 
-// 设置请求头
+// 请求拦截
 http.interceptors.request.use(config => {
     if (localStorage.token) {
         config.headers.Authorization = "Bearer " + (localStorage.token || '')
     }
     return config
 }, err => {
-
     return Promise.reject(err)
 })
 
-// 错误响应拦截
+// 响应拦截
 http.interceptors.response.use(res => {
     return res
 }, err => {

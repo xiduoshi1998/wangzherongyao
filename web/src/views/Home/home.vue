@@ -59,12 +59,12 @@
             v-slot="{ navigate }"
             :to="`videos/${video._id}`"
             class="videoItem py-2 text-center"
-            v-for="(video,i) in category.HomeVideo"
+            v-for="(video,i) in category.categories"
             :key="i"
           >
-            <div @click="navigate">
+            <div @click="navigate" class="Homevideo">
               <img :src="video.picture" height="90" class="w-100" />
-              <p class="text-ellipse2 w-100">{{video.title}}</p>
+              <p class="text-ellipse2 w-100 fs-sm">{{video.title}}</p>
               <div class="d-flex ai-center pt-1">
                 <span class="fs-xs flex-1 pr-5">
                   <i class="iconfont icon-bofang fs-lg"></i>
@@ -121,7 +121,7 @@ export default {
     },
     // 轮播图
     async fetchBanner() {
-      const res = await this.$http.get("banner");
+      const res = await this.$http.get("banner/home");
       this.bannerCats = res.data.items;
     },
     // 视频
@@ -165,5 +165,6 @@ export default {
 }
 .videoItem {
   width: 49%;
+  text-align: left;
 }
 </style>

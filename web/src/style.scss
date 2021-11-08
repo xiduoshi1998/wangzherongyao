@@ -79,7 +79,8 @@ $boder-color:map-get( $colors, "lightgray" );
 $base-font-size:1rem;
 // 字体
 $font-size:(
-    xxs:0.6154,
+    xxxs:0.4615,
+    xxs:0.6154, //8
     xs:0.7692, //10
     sm:0.9231,  //12
     md:1, //13

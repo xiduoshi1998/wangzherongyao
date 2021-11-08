@@ -19,7 +19,6 @@ class adminController {
         let queryOptions = {};
         let name = ctx.model.modelName;
         if (name === 'Categories' || name === 'Video') {
-            console.log(ctx.model.modelName);
             queryOptions.populate = 'parent'
         }
         let items = await ctx.model.find().setOptions(queryOptions);
